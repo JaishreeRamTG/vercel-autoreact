@@ -14,7 +14,7 @@
   ],
   "env": {
     "BOT_TOKEN": "7459677349:AAGgRmDoWJ_Yw7N9DDMCIVJlhxb8G1yL8AU",
-    "BOT_USERNAME": "reactionxbot",
+    "BOT_USERNAME": "ReactionsXBot",
     "EMOJI_LIST": "🤡🍌🖕🤬",
     "RANDOM_LEVEL": "5",
     "RESTRICTED_CHATS": "[\"1234567890\", \"0987654321\"]"
