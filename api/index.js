@@ -1,7 +1,13 @@
+/*!
+ * © [2024] Malith-Rukshan. All rights reserved.
+ * Repository: https://github.com/Malith-Rukshan/Auto-Reaction-Bot
+ */
+
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import TelegramBotAPI from './TelegramBotAPI.js';
+import { htmlContent, startMessage, donateMessage } from './constants.js';
 import { splitEmojis, getRandomPositiveReaction, getChatIds } from './helper.js';
 
 dotenv.config();
@@ -29,8 +35,7 @@ app.post('/', async (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    // Changed the website response to show the "java website code not found" message
-    res.send('java website code not found');
+    res.send(htmlContent);
 });
 
 async function onUpdate(data, botApi, Reactions, RestrictedChats, botUsername, RandomLevel) {
@@ -43,49 +48,32 @@ async function onUpdate(data, botApi, Reactions, RestrictedChats, botUsername, R
         text = content.text;
 
         if (data.message && (text === '/start' || text === '/start@' + botUsername)) {
-            const userName = content.from.first_name;
-            const userUid = content.from.id;
-
-            const startMessage = `
-*👋 Hey,* [${userName}](tg://user?id=${userUid})!
-
-Welcome to the Auto Emoji Reaction Bot 🎉, ready to sprinkle your conversations with a little extra happiness!
-
-*💁‍♂️ Here's how I spice up your chats:*
-
-✨ DM Magic: Message me and receive a surprise emoji in return. Expect the unexpected and enjoy the fun!
-🏖 Group & Channel: Add me to your groups or channels, and I'll keep the vibe positive by reacting to messages with engaging emojis.
-
-*✍️ To view the emojis I can use, simply type /reactions.*
-
-Let's elevate our conversations with more energy and color! 🚀
-
-*💖 Keep us running! Support the bot: /donate*`;
-
-            await botApi.sendMessage(chatId, startMessage, [
+            await botApi.sendMessage(chatId, startMessage.replace('UserName', content.chat.type === "private" ? content.from.first_name : content.chat.title), [
                 [
-                    { "text": "➕ ᴀᴅᴅ ᴛᴏ ᴄʜᴀɴɴᴇʟ", "url": `https://t.me/${botUsername}?startchannel=botstart` },
-                    { "text": "➕ ᴀᴅᴅ ᴛᴏ ɢʀᴏᴜᴘ", "url": `https://t.me/${botUsername}?startgroup=botstart` }
+                    { "text": "➕ Add to Channel ➕", "url": `https://t.me/${botUsername}?startchannel=botstart` },
+                    { "text": "➕ Add to Group ➕", "url": `https://t.me/${botUsername}?startgroup=botstart` },
                 ],
                 [
-                    { "text": "ᴜᴘᴅᴀᴛᴇs", "url": "https://t.me/+mAgf1IcMqgYwY2I1" },
-                    { "text": "sᴜᴘᴘᴏʀᴛ", "url": "http://t.me/offchats" }
+                    { "text": "Github Source 📥", "url": "https://github.com/Malith-Rukshan/Auto-Reaction-Bot" },
+                ],
+                [
+                    { "text": "💝 Support Us - Donate 🤝", "url": "https://t.me/Auto_ReactionBOT?start=donate" }
                 ]
             ]);
         } else if (data.message && text === '/reactions') {
             const reactions = Reactions.join(", ");
             await botApi.sendMessage(chatId, "✅ Enabled Reactions : \n\n" + reactions);
-        } else if (data.message && (text === '/donate' || text === '/start donate')) {
+        } else if (data.message && text === '/donate' || text === '/start donate') {
             await botApi.sendInvoice(
                 chatId,
                 "Donate to Auto Reaction Bot ✨",
-                "Thank you for supporting the bot!",
+                donateMessage,
                 '{}',
                 '',
                 'donate',
                 'XTR',
                 [{ label: 'Pay ⭐️1', amount: 1 }],
-            );
+            )
         } else {
             // Calculate the threshold: higher RandomLevel, lower threshold
             let threshold = 1 - (RandomLevel / 10);
@@ -102,7 +90,7 @@ Let's elevate our conversations with more energy and color! 🚀
                 }
             }
         }
-    } else if (data.pre_checkout_query) {
+    } else if (data.pre_checkout_query){
         await botApi.answerPreCheckoutQuery(data.pre_checkout_query.id, true);
         await botApi.sendMessage(data.pre_checkout_query.from.id, "Thank you for your donation! 💝");
     }
