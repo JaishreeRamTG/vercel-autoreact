@@ -43,7 +43,22 @@ async function onUpdate(data, botApi, Reactions, RestrictedChats, botUsername, R
         text = content.text;
 
         if (data.message && (text === '/start' || text === '/start@' + botUsername)) {
-            await botApi.sendMessage(chatId, "Welcome to the bot! Use the buttons below to add the bot to your channel or group.", [
+            await botApi.sendMessage(chatId, `
+👋 Hello there, ᴍʏsᴛɪᴄ | ʸᵒᵘʳ×ᵈᵃᵈ !
+
+*Welcome to the Auto Emoji Reaction Bot 🎉, ready to sprinkle your conversations with a little extra happiness!*
+
+💁‍♂️ Here's how I spice up your chats:
+
+✨ DM Magic: Message me and receive a surprise emoji in return. Expect the unexpected and enjoy the fun!
+🏖 Group & Channel: Add me to your groups or channels, and I'll keep the vibe positive by reacting to messages with engaging emojis.
+
+*✍️ To view the emojis I can use, simply type /reactions.*
+
+Let's elevate our conversations with more energy and color! 🚀
+
+*💖 Keep us running! Support the bot: /donate*
+            `, [
                 [
                     { "text": "➕ ᴀᴅᴅ ᴛᴏ ᴄʜᴀɴɴᴇʟ", "url": `https://t.me/${botUsername}?startchannel=botstart` },
                     { "text": "➕ ᴀᴅᴅ ᴛᴏ ɢʀᴏᴜᴘ", "url": `https://t.me/${botUsername}?startgroup=botstart` }
