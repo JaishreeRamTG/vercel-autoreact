@@ -1,13 +1,7 @@
-/*!
- * © [2024] Malith-Rukshan. All rights reserved.
- * Repository: https://github.com/Malith-Rukshan/Auto-Reaction-Bot
- */
-
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import TelegramBotAPI from './TelegramBotAPI.js';
-import { htmlContent, startMessage, donateMessage } from './constants.js';
 import { splitEmojis, getRandomPositiveReaction, getChatIds } from './helper.js';
 
 dotenv.config();
@@ -35,7 +29,8 @@ app.post('/', async (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.send(htmlContent);
+    // Changed the website response to show the "java website code not found" message
+    res.send('java website code not found');
 });
 
 async function onUpdate(data, botApi, Reactions, RestrictedChats, botUsername, RandomLevel) {
@@ -48,30 +43,30 @@ async function onUpdate(data, botApi, Reactions, RestrictedChats, botUsername, R
         text = content.text;
 
         if (data.message && (text === '/start' || text === '/start@' + botUsername)) {
-            await botApi.sendMessage(chatId, startMessage.replace('UserName', content.chat.type === "private" ? content.from.first_name : content.chat.title), [
+            await botApi.sendMessage(chatId, "Welcome to the bot! Use the buttons below to add the bot to your channel or group.", [
                 [
-    { "text": "➕ ᴀᴅᴅ ᴛᴏ ᴄʜᴀɴɴᴇʟ", "url": `https://t.me/${botUsername}?startchannel=botstart` },
-    { "text": "➕ ᴀᴅᴅ ᴛᴏ ɢʀᴏᴜᴘ", "url": `https://t.me/${botUsername}?startgroup=botstart` }
-],
-[
-    { "text": "ᴜᴘᴅᴀᴛᴇs", "url": "https://t.me/+mAgf1IcMqgYwY2I1" },
-    { "text": "sᴜᴘᴘᴏʀᴛ", "url": "http://t.me/offchats" }
-]
+                    { "text": "➕ ᴀᴅᴅ ᴛᴏ ᴄʜᴀɴɴᴇʟ", "url": `https://t.me/${botUsername}?startchannel=botstart` },
+                    { "text": "➕ ᴀᴅᴅ ᴛᴏ ɢʀᴏᴜᴘ", "url": `https://t.me/${botUsername}?startgroup=botstart` }
+                ],
+                [
+                    { "text": "ᴜᴘᴅᴀᴛᴇs", "url": "https://t.me/+mAgf1IcMqgYwY2I1" },
+                    { "text": "sᴜᴘᴘᴏʀᴛ", "url": "http://t.me/offchats" }
+                ]
             ]);
         } else if (data.message && text === '/reactions') {
             const reactions = Reactions.join(", ");
             await botApi.sendMessage(chatId, "✅ Enabled Reactions : \n\n" + reactions);
-        } else if (data.message && text === '/donate' || text === '/start donate') {
+        } else if (data.message && (text === '/donate' || text === '/start donate')) {
             await botApi.sendInvoice(
                 chatId,
                 "Donate to Auto Reaction Bot ✨",
-                donateMessage,
+                "Thank you for supporting the bot!",
                 '{}',
                 '',
                 'donate',
                 'XTR',
                 [{ label: 'Pay ⭐️1', amount: 1 }],
-            )
+            );
         } else {
             // Calculate the threshold: higher RandomLevel, lower threshold
             let threshold = 1 - (RandomLevel / 10);
@@ -88,7 +83,7 @@ async function onUpdate(data, botApi, Reactions, RestrictedChats, botUsername, R
                 }
             }
         }
-    } else if (data.pre_checkout_query){
+    } else if (data.pre_checkout_query) {
         await botApi.answerPreCheckoutQuery(data.pre_checkout_query.id, true);
         await botApi.sendMessage(data.pre_checkout_query.from.id, "Thank you for your donation! 💝");
     }
