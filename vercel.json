@@ -15,7 +15,7 @@
   "env": {
     "BOT_TOKEN": "7682969410:AAEx5k0-bOamrR7Q-_32sBPAUlmMssbicL0",
     "BOT_USERNAME": "vercelxtestingbot",
-    "EMOJI_LIST": "🤡🖕🍌",
+    "EMOJI_LIST": "🤡🍌🖕🤬",
     "RANDOM_LEVEL": "5",
     "RESTRICTED_CHATS": "[\"1234567890\", \"0987654321\"]"
   }
