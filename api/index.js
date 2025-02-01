@@ -47,11 +47,11 @@ async function onUpdate(data, botApi, Reactions, RestrictedChats, botUsername, R
             const userUid = content.from.id;
 
             const startMessage = `
-👋 Hello there, [${userName}](tg://user?id=${userUid})!
+*👋 Hello there, [${userName}](tg://user?id=${userUid})!*
 
-*Welcome to the Auto Emoji Reaction Bot 🎉, ready to sprinkle your conversations with a little extra happiness!*
+Welcome to the Auto Emoji Reaction Bot 🎉, ready to sprinkle your conversations with a little extra happiness!
 
-💁‍♂️ Here's how I spice up your chats:
+*💁‍♂️ Here's how I spice up your chats:*
 
 ✨ DM Magic: Message me and receive a surprise emoji in return. Expect the unexpected and enjoy the fun!
 🏖 Group & Channel: Add me to your groups or channels, and I'll keep the vibe positive by reacting to messages with engaging emojis.
