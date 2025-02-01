@@ -47,7 +47,7 @@ async function onUpdate(data, botApi, Reactions, RestrictedChats, botUsername, R
             const userUid = content.from.id;
 
             const startMessage = `
-*👋 Hello there,* [${userName}](tg://user?id=${userUid})!
+*👋 Hey,* [${userName}](tg://user?id=${userUid})!
 
 Welcome to the Auto Emoji Reaction Bot 🎉, ready to sprinkle your conversations with a little extra happiness!
 
