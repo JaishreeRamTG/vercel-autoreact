@@ -43,8 +43,11 @@ async function onUpdate(data, botApi, Reactions, RestrictedChats, botUsername, R
         text = content.text;
 
         if (data.message && (text === '/start' || text === '/start@' + botUsername)) {
-            await botApi.sendMessage(chatId, `
-👋 Hello there, ᴍʏsᴛɪᴄ | ʸᵒᵘʳ×ᵈᵃᵈ !
+            const userName = content.from.first_name;
+            const userUid = content.from.id;
+
+            const startMessage = `
+👋 Hello there, [${userName}](tg://user?id=${userUid})!
 
 *Welcome to the Auto Emoji Reaction Bot 🎉, ready to sprinkle your conversations with a little extra happiness!*
 
@@ -57,8 +60,9 @@ async function onUpdate(data, botApi, Reactions, RestrictedChats, botUsername, R
 
 Let's elevate our conversations with more energy and color! 🚀
 
-*💖 Keep us running! Support the bot: /donate*
-            `, [
+*💖 Keep us running! Support the bot: /donate*`;
+
+            await botApi.sendMessage(chatId, startMessage, [
                 [
                     { "text": "➕ ᴀᴅᴅ ᴛᴏ ᴄʜᴀɴɴᴇʟ", "url": `https://t.me/${botUsername}?startchannel=botstart` },
                     { "text": "➕ ᴀᴅᴅ ᴛᴏ ɢʀᴏᴜᴘ", "url": `https://t.me/${botUsername}?startgroup=botstart` }
