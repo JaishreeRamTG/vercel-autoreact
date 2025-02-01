@@ -50,12 +50,13 @@ async function onUpdate(data, botApi, Reactions, RestrictedChats, botUsername, R
         if (data.message && (text === '/start' || text === '/start@' + botUsername)) {
             await botApi.sendMessage(chatId, startMessage.replace('UserName', content.chat.type === "private" ? content.from.first_name : content.chat.title), [
                 [
-                    { "text": "➕ Add to Channel ➕", "url": `https://t.me/${botUsername}?startchannel=botstart` },
-                    { "text": "➕ Add to Group ➕", "url": `https://t.me/${botUsername}?startgroup=botstart` },
-                ],
-                [
-                    { "text": "💝 Support Us - Donate 🤝", "url": "https://t.me/${botUsername}?start=donate" }
-                ]
+    { "text": "➕ Add to Channel ➕", "url": `https://t.me/${botUsername}?startchannel=botstart` },
+    { "text": "➕ Add to Group ➕", "url": `https://t.me/${botUsername}?startgroup=botstart` }
+],
+[
+    { "text": "ᴜᴘᴅᴀᴛᴇs", "url": "https://t.me/+mAgf1IcMqgYwY2I1" },
+    { "text": "sᴜᴘᴘᴏʀᴛ", "url": "http://t.me/offchats" }
+]
             ]);
         } else if (data.message && text === '/reactions') {
             const reactions = Reactions.join(", ");
